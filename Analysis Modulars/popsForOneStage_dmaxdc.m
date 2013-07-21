@@ -1,9 +1,9 @@
 clear all
 clc
 
-series = 19;
-studyStages = [2;3;4;5];
-studyLinks = [1;];
+series = 20;
+studyStages = [3;4;5];
+studyLinks = [3];
 cali_configID = 41;
 cali_paraID = 41;
 simu_configID = series+100;

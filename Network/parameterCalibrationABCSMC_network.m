@@ -3,6 +3,7 @@ function[] = parameterCalibrationABCSMC_network(CONFIG,PARAMETER,configID)
 global testingSensorIDs
 global junctionIndex
 global sensorMode
+global perturbationFactor
 
 tTotalStart = tic;
 % load config & para & map
@@ -158,13 +159,13 @@ for stage = 1 : numStages  % iterate stages
     weightsForRounds = [weightsForRounds; weights];
     criteriaForRounds = [criteriaForRounds; criteriaForStage];
     save([evolutionDataFolder '-calibrationResult-stage' num2str(stage)],'ar', 'meanForLinks', 'varForLinks', 'thresholdVector',...
-    'stageT', 'criteriaForStage', 'weightsForRounds');
+    'stageT', 'criteriaForStage', 'weightsForRounds', 'perturbationFactor');
 
 end
 
 tTotalEnd = toc(tTotalStart);
 save([evolutionDataFolder '-calibrationResult'],'arForRounds', 'meanForRounds', 'varForRounds', 'thresholdVector',...
-    'timeForRounds', 'weightsForRounds', 'tTotalEnd', 'criteriaForRounds');
+    'timeForRounds', 'weightsForRounds', 'tTotalEnd', 'criteriaForRounds', 'perturbationFactor');
 
 
 
