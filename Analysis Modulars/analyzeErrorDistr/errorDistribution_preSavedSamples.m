@@ -9,12 +9,12 @@ global sensorDataSource
 global thresholdChoice
 global errorStart
 
-series = 18;
-studyStages = [1;2;3;4];
-numSamplesStudied = 100;
+series = 19;
+studyStages = [1;2;3;4;5];
+numSamplesStudied = 20;
 cali_configID = 41;
 cali_paraID = 41;
-simu_configID = 115;
+simu_configID = series+100;
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
 boundarySinkSensorIDs = [402953; 400698];
 testingSensorIDs = [400739; 400363];

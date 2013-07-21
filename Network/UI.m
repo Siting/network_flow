@@ -34,7 +34,8 @@ samplingModeVmax = 1; % 1: Gaussian, 2: uniform
 samplingModeDmax = 2;
 samplingModeDc = 2;
 
-ABC_selection_type = 2;boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
+ABC_selection_type = 2;
+boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
 boundarySinkSensorIDs = [402953; 400698];
 testingSensorIDs = [400739; 400363];
 funsOption = 2;    % 1: uniform,  2:non-uniform
