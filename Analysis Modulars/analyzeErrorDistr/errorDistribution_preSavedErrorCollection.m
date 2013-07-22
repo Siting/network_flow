@@ -2,8 +2,8 @@
 clear all
 clc
 
-series = 20;
-studyStages = [1;2;3;4;5;];
+series = 22;
+studyStages = [1;2;3;4;5;6;7;8;9;10];
 numSamplesStudied = 100;
 cali_configID = 42;
 cali_paraID = 42;

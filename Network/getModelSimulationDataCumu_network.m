@@ -6,7 +6,7 @@ for i = 1 : length(tSensorIDs)
     % get density of sensors
     load(['.\Result\testingData\config-' num2str(configID) '\' num2str(sample) '\' num2str(sensorID) '-true']);
     
-    % compute flow
+    % compute flow (unit: hr)
     if i == 1
         j = 5;
     elseif i == 2
@@ -14,8 +14,9 @@ for i = 1 : length(tSensorIDs)
     end
     flow = Q(sensorData,ROUND_SAMPLES(j).samples(1,sample), ROUND_SAMPLES(j).samples(2,sample), ROUND_SAMPLES(j).samples(3,sample));
 
-    % adjusted flow to the T time scale, now is in hour
-    flow = flow ./ 60 * T;
+    % adjusted flow to the T time scale
+    flow = flow ./ 60;  % unit: min
+    flow = flow ./ (60/deltaTinSecond);  % unit: 2second
 
     % get cumulative flow
     cumulativeFlow = [];

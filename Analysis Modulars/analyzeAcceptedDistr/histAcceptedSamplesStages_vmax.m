@@ -1,15 +1,11 @@
 clear all
 clc
 
-series = 15;
-studyStages = [1;3;5;7];
+series = 20;
+studyStages = [1;2;4;5];
 xlimLow = 40;
 xlimHigh = 80;
-studyLinks = [1];
-cali_configID = 41;
-cali_paraID = 41;
-simu_configID = 115;
-numSamplesStudied = 100;
+studyLinks = [1;3;5;7];
 
 for j = 1 : length(studyLinks)
     link = studyLinks(j);
@@ -25,8 +21,10 @@ for j = 1 : length(studyLinks)
         hold on
     end   
     hold off
+    
+    saveas(gcf, ['../Plots\series' num2str(series) '\acceptedSamplesHist_link_' num2str(link) '_vmax.pdf']);
+    saveas(gcf, ['../Plots\series' num2str(series) '\acceptedSamplesHist_link_' num2str(link) '_vmax.fig']);
+    saveas(gcf, ['../Plots\series' num2str(series) '\acceptedSamplesHist_link_' num2str(link) '_vmax.eps'], 'epsc');
 end
 
-saveas(gcf, ['../Plots\series' num2str(series) '\acceptedSamplesHist_vmax.pdf']);
-saveas(gcf, ['../Plots\series' num2str(series) '\acceptedSamplesHist_vmax.fig']);
-saveas(gcf, ['../Plots\series' num2str(series) '\acceptedSamplesHist_vmax.eps'], 'epsc');
+

@@ -6,12 +6,12 @@ global boundarySinkSensorIDs
 global testingSensorIDs
 global sensorDataSource
 
-series = 15;
-stage = 7;
-startTimeStamp = 3;
+series = 21;
+stage = 8;
+startTimeStamp = 5;
 studyLinks = [1; 3; 5; 7];
-cali_configID = 41;
-cali_paraID = 41;
+cali_configID = 42;
+cali_paraID = 42;
 simu_configID = series + 100;
 numSamplesStudied = 2; % !!!!!!!!!! only study the mean values
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
@@ -44,6 +44,8 @@ mkdir(simu_linkEvolutionDataFolder);
 [sensorDataMatrix] = getNoisySensorData_network(testingSensorIDs, PARAMETER.T,...
     PARAMETER.startTime, PARAMETER.endTime);
 
+ROUND_SAMPLES = initializeAllSamples(linkMap);
+
 % SIMULATION
 for sample = 1 : numSamplesStudied
     [LINK, JUNCTION, SOURCE_LINK, SINK_LINK] = preloadAndCompute(linkMap, nodeMap, PARAMETER.T, PARAMETER.startTime, PARAMETER.endTime);
@@ -60,16 +62,16 @@ for sample = 1 : numSamplesStudied
             FUNDAMENTAL(i).dc = meanForRounds(3, i, stage);
         end
     end
-        
+        keyboard
     % run simulation
-    [LINK] = runSimulationForSample(FUNDAMENTAL, PARAMETER, CONFIG, simu_configID, sample, simu_sensorEvolutionDataFolder,...
-        LINK, JUNCTION, SOURCE_LINK, SINK_LINK);    
+    [LINK, ROUND_SAMPLES] = runSimulationForSample(FUNDAMENTAL, PARAMETER, CONFIG, simu_configID, sample, simu_sensorEvolutionDataFolder,...
+        LINK, JUNCTION, SOURCE_LINK, SINK_LINK, ROUND_SAMPLES);    
     
     % all links density results
     save([simu_linkEvolutionDataFolder '\LINK-CONFIG-' num2str(cali_configID) '-sample-' num2str(sample)],'LINK');
-    
+
     % get model simulation data (cumulative)
-    modelDataMatrix = getModelSimulation_analyze(simu_configID, sample, testingSensorIDs, PARAMETER.T, PARAMETER.deltaTinSecond);
+    modelDataMatrix = getModelSimulation_analyze(simu_configID, sample, testingSensorIDs, PARAMETER.T, PARAMETER.deltaTinSecond, ROUND_SAMPLES);
     
     % save cumulative density Matrix
     save([simu_sensorEvolutionDataFolder '\' num2str(sample) '\cumuDensity'],'modelDataMatrix');
@@ -78,7 +80,7 @@ for sample = 1 : numSamplesStudied
         disp(['sample ' num2str(sample) ' is finished']);
     end
 end
-keyboard
+
 % PLOT
 figure
 for i = 1 : length(testingSensorIDs)
@@ -97,8 +99,9 @@ for i = 1 : length(testingSensorIDs)
     hold on
     plot(postDensityMatrix(startTimeStamp:end), 'k');
     plot(sensorData(startTimeStamp+1:end), 'g');
+    legend('prior','pos','true');
     hold off
-    
+
     saveas(gcf, ['../Plots\series' num2str(series) '\predictionSensorPriorVsPos_sensor_ ' num2str(testingSensorIDs(i)) '_mean.pdf']);
     saveas(gcf, ['../Plots\series' num2str(series) '\predictionSensorPriorVsPos_sensor_ ' num2str(testingSensorIDs(i)) '_mean.fig']);
     saveas(gcf, ['../Plots\series' num2str(series) '\predictionSensorPriorVsPos_sensor_ ' num2str(testingSensorIDs(i)) '_mean.eps'], 'epsc');

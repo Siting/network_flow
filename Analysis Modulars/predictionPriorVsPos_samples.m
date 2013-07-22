@@ -5,19 +5,25 @@ global boundarySourceSensorIDs
 global boundarySinkSensorIDs
 global testingSensorIDs
 global sensorDataSource
+global samplingModeVmax
+global samplingModeDmax
+global samplingModeDc
 
-series = 15;
-stage = 7;
+series = 22;
+stage = 10;
 numSamplesStudied = 3;
 startTimeStamp = 5;
 studyLinks = [1; 3; 5; 7];
-cali_configID = 41;
-cali_paraID = 41;
+cali_configID = 42;
+cali_paraID = 42;
 simu_configID = series + 100;
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
 boundarySinkSensorIDs = [402953; 400698];
 testingSensorIDs = [400739; 400363];
 sensorDataSource = 2;
+samplingModeVmax = 1;
+samplingModeDmax = 2;
+samplingModeDc = 2;
 
 % load prior and posterior
 fileName = (['.\Configurations\fundamental_setting\FUN_CONFIG-' num2str(cali_configID) '.csv']);
@@ -47,10 +53,11 @@ mkdir(simu_linkEvolutionDataFolder);
 [sensorDataMatrix] = getNoisySensorData_network(testingSensorIDs, PARAMETER.T,...
     PARAMETER.startTime, PARAMETER.endTime);
 
+ROUND_SAMPLES = initializeAllSamples(linkMap);
 % SIMULATION
 for sample = 1 : (2 * numSamplesStudied)
     [LINK, JUNCTION, SOURCE_LINK, SINK_LINK] = preloadAndCompute(linkMap, nodeMap, PARAMETER.T, PARAMETER.startTime, PARAMETER.endTime);
-    
+
     % extract sample for every link & assign to links
     for i = 1 : size(meanForRounds,2)
         if sample <= 1 * numSamplesStudied
@@ -69,14 +76,14 @@ for sample = 1 : (2 * numSamplesStudied)
     end
     
     % run simulation
-    [LINK] = runSimulationForSample(FUNDAMENTAL, PARAMETER, CONFIG, simu_configID, sample, simu_sensorEvolutionDataFolder,...
-        LINK, JUNCTION, SOURCE_LINK, SINK_LINK);
+    [LINK, ROUND_SAMPLES] = runSimulationForSample(FUNDAMENTAL, PARAMETER, CONFIG, simu_configID, sample, simu_sensorEvolutionDataFolder,...
+        LINK, JUNCTION, SOURCE_LINK, SINK_LINK, ROUND_SAMPLES);
     
     % all links density results
     save([simu_linkEvolutionDataFolder '\LINK-CONFIG-' num2str(cali_configID) '-sample-' num2str(sample)],'LINK');
     
     % get model simulation data (cumulative)
-    modelDataMatrix = getModelSimulation_analyze(simu_configID, sample, testingSensorIDs, PARAMETER.T, PARAMETER.deltaTinSecond);
+    modelDataMatrix = getModelSimulation_analyze(simu_configID, sample, testingSensorIDs, PARAMETER.T, PARAMETER.deltaTinSecond, ROUND_SAMPLES);
     
     % save cumulative density Matrix
     save([simu_sensorEvolutionDataFolder '\' num2str(sample) '\cumuDensity'],'modelDataMatrix');
@@ -86,7 +93,7 @@ for sample = 1 : (2 * numSamplesStudied)
     end
 end
 
-keyboard
+
 % PLOT
 figure
 for i = 1 : length(testingSensorIDs)
@@ -107,12 +114,12 @@ for i = 1 : length(testingSensorIDs)
     end
     
     sensorData = sensorDataMatrix(:,i);
-    plot(sensorData(startTimeStamp+1:end), 'g');
+    h(3) = plot(sensorData(startTimeStamp+1:end), 'g');
     xlabel('time');
     ylabel('density');
     legend(h,'prior', 'posterior','true');
     hold off
-    keyboard
+
     saveas(gcf, ['../Plots\series' num2str(series) '\predictionSensorPriorVsPos_sensor_ ' num2str(testingSensorIDs(i)) '_samples.pdf']);
     saveas(gcf, ['../Plots\series' num2str(series) '\predictionSensorPriorVsPos_sensor_ ' num2str(testingSensorIDs(i)) '_samples.fig']);
     saveas(gcf, ['../Plots\series' num2str(series) '\predictionSensorPriorVsPos_sensor_ ' num2str(testingSensorIDs(i)) '_samples.eps'], 'epsc');

@@ -1,5 +1,5 @@
-function[LINK] = runSimulationForSample(FUNDAMENTAL, PARAMETER, CONFIG, simu_configID, index, simu_evolutionDataFolder,...
-    LINK, JUNCTION, SOURCE_LINK, SINK_LINK)
+function[LINK, ROUND_SAMPLES] = runSimulationForSample(FUNDAMENTAL, PARAMETER, CONFIG, simu_configID, index, simu_evolutionDataFolder,...
+    LINK, JUNCTION, SOURCE_LINK, SINK_LINK, ROUND_SAMPLES)
 
 % load config & para & map
 [deltaTinSecond, deltaT, nT, numIntervals, numEns,...
@@ -14,7 +14,7 @@ numTimeSteps = (endTime-startTime)*3600/deltaTinSecond;
 load([caliNetworkID, '-graph.mat']);
 
 % load LINK
-[LINK] = loadLinksSample(LINK, FUNDAMENTAL);
+[LINK, ROUND_SAMPLES] = loadLinksSample(LINK, FUNDAMENTAL, ROUND_SAMPLES);
 
 % Set junction ratio
 [JUNCTION] = loadNodeRatio(CONFIG.configID,JUNCTION,junctionSolverType,LINK);
