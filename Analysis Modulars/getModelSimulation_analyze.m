@@ -5,6 +5,7 @@ c = (T*60)/deltaTinSecond;
 for i = 1 : length(testingSensorIDs)
     sensorID = testingSensorIDs(i);
     load(['.\Result\testingData\config-' num2str(simu_configID) '\' num2str(sample) '\' num2str(testingSensorIDs(i)) '-true.mat']);  % pos
+%     load([num2str(simu_evolutionDataFolder) '\' num2str(sample) '\' num2str(testingSensorIDs(i)) '-true']);
     
     % compute flow (unit: hr)
     if i == 1

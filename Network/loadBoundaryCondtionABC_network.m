@@ -4,38 +4,38 @@ global boundarySourceSensorIDs
 global boundarySinkSensorIDs
 global sensorDataSource
 
+
 % sourceLinkIds = SOURCE_LINK.keys;
 % sinkLinkIds = SINK_LINK.keys;
 
 if sensorDataSource == 2
-% source
-for i = 1 : length(SOURCE_LINK)
-    source_link = SOURCE_LINK(i);
-    load(['.\SensorData_feedIn\' num2str(boundarySourceSensorIDs(i)) '.mat']);
 
-    % load data from startTime to endTime
-    startCell = ceil((startTime*60)/T + 2);
-    endCell = floor((endTime*60)/T + 1);
-    flowDataSum = flowDataSum(startCell:endCell,1);
+    % source
+    for i = 1 : length(SOURCE_LINK)
+        source_link = SOURCE_LINK(i);
+        load(['.\SensorData_feedIn\' num2str(boundarySourceSensorIDs(i)) '.mat']);
+        
+        % load data from startTime to endTime
+        startCell = ceil((startTime*60)/T + 3);
+        endCell = floor((endTime*60)/T + 2);
+        flowDataSum = flowDataSum(startCell:endCell,1);
+        source_link.densityResult = flowDataSum;
+        SOURCE_LINK(i) = source_link;
+    end
     
-    source_link.densityResult = flowDataSum;
-    
-    SOURCE_LINK(i) = source_link;
-end
+    % sink
+    for i = 1 : length(SINK_LINK)
 
-% sink
-for i = 1 : length(SINK_LINK)
-    sink_link = SINK_LINK(i);
-    load(['.\SensorData_feedIn\' num2str(boundarySinkSensorIDs(i)) '.mat']);
+        sink_link = SINK_LINK(i);
+        load(['.\SensorData_feedIn\' num2str(boundarySinkSensorIDs(i)) '.mat']);        
+        % load data from startTime to endTime
+        startCell = ceil((startTime*60)/T + 3);
+        endCell = floor((endTime*60)/T + 2);
+        flowDataSum = flowDataSum(startCell:endCell,1);       
+        sink_link.densityResult = flowDataSum;
+        SINK_LINK(i) = sink_link;
+    end
     
-    % load data from startTime to endTime
-    startCell = ceil((startTime*60)/T + 1);
-    endCell = floor((endTime*60)/T + 1);
-    flowDataSum = flowDataSum(startCell:endCell,1);
-    
-    sink_link.densityResult = flowDataSum;
-    SINK_LINK(i) = sink_link;
-end
 else
     % read file
     fileName = (['.\Configurations\boundary_condition\BOUNDARY_CONDITION_CONFIG-' num2str(41) '.csv']);
@@ -66,8 +66,8 @@ else
     
     % check if all link has been signed value in the csv file
     if size(sourceBoundaryValueMean,2) == length(SOURCE_LINK) &&...
- size(sinkBoundaryValueMean,2) == length(SINK_LINK)
-numIntervals = 5;
+            size(sinkBoundaryValueMean,2) == length(SINK_LINK)
+        numIntervals = 5;
         % source
         for i = 1 : length(SOURCE_LINK)
             source_link = SOURCE_LINK(i);

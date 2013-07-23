@@ -5,6 +5,7 @@ global boundarySourceSensorIDs
 global boundarySinkSensorIDs
 global testingSensorIDs
 global sensorDataSource
+global sensorMode
 
 series = 21;
 stage = 8;
@@ -18,6 +19,7 @@ boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
 boundarySinkSensorIDs = [402953; 400698];
 testingSensorIDs = [400739; 400363];
 sensorDataSource = 2;
+sensorMode = 2;
 
 % load prior and posterior
 fileName = (['.\Configurations\fundamental_setting\FUN_CONFIG-' num2str(cali_configID) '.csv']);
@@ -62,11 +64,11 @@ for sample = 1 : numSamplesStudied
             FUNDAMENTAL(i).dc = meanForRounds(3, i, stage);
         end
     end
-        keyboard
+
     % run simulation
     [LINK, ROUND_SAMPLES] = runSimulationForSample(FUNDAMENTAL, PARAMETER, CONFIG, simu_configID, sample, simu_sensorEvolutionDataFolder,...
         LINK, JUNCTION, SOURCE_LINK, SINK_LINK, ROUND_SAMPLES);    
-    
+
     % all links density results
     save([simu_linkEvolutionDataFolder '\LINK-CONFIG-' num2str(cali_configID) '-sample-' num2str(sample)],'LINK');
 

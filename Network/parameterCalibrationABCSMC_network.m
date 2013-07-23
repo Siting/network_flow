@@ -24,7 +24,7 @@ junctionIndex = 1;
 
 % pre-load links & junctions, also precompute junction lane ratio for
 % diverge and merge junctions
-[LINK, JUNCTION, SOURCE_LINK, SINK_LINK] = preloadAndCompute(linkMap, nodeMap, T, startTime, endTime);
+[LINK, JUNCTION, SOURCE_LINK, SINK_LINK] = preloadAndCompute(linkMap, nodeMap, T, startTime, endTime, deltaTinSecond);
 
 % iterate through nodes
 % for i = 1 : length(nodeIDs)
@@ -74,7 +74,7 @@ for stage = 1 : numStages  % iterate stages
 
                 % Initialize links
                 [LINK, SOURCE_LINK, SINK_LINK, JUNCTION, numCellsNet, ALL_SAMPLES, numLanes, ROUND_SAMPLES] = initializeAll_network(FUNDAMENTAL, linkMap, JUNCTION, deltaT, numEns, CONFIG, ALL_SAMPLES,...
-                    SOURCE_LINK, SINK_LINK, junctionSolverType, LINK, ROUND_SAMPLES);
+                    SOURCE_LINK, SINK_LINK, junctionSolverType, LINK, ROUND_SAMPLES, deltaTinSecond);
           
                 % run forward simulation
                 [LINK] = runForwardSimulation(LINK, SOURCE_LINK, SINK_LINK, JUNCTION, deltaT,...

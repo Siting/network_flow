@@ -23,7 +23,7 @@ load([caliNetworkID, '-graph.mat']);
 [LINK, numCellsNet] = initializeAllLinks(LINK, deltaT, numEns, CONFIG);
 
 % set FUNDA for SOURCE, SINK
-[SOURCE_LINK, SINK_LINK] = setSourceSinkSample(SOURCE_LINK, SINK_LINK, LINK);
+[SOURCE_LINK, SINK_LINK] = setSourceSinkSample(SOURCE_LINK, SINK_LINK, LINK, deltaTinSecond);
 
 % run simulation
 [LINK] = runForwardSimulation(LINK, SOURCE_LINK, SINK_LINK, JUNCTION, deltaT, numEns, numTimeSteps, nT, junctionSolverType);

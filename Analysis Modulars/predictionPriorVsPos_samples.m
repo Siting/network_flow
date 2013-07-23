@@ -8,10 +8,11 @@ global sensorDataSource
 global samplingModeVmax
 global samplingModeDmax
 global samplingModeDc
+global sensorMode
 
 series = 22;
 stage = 10;
-numSamplesStudied = 3;
+numSamplesStudied = 10;
 startTimeStamp = 5;
 studyLinks = [1; 3; 5; 7];
 cali_configID = 42;
@@ -24,6 +25,7 @@ sensorDataSource = 2;
 samplingModeVmax = 1;
 samplingModeDmax = 2;
 samplingModeDc = 2;
+sensorMode = 2;
 
 % load prior and posterior
 fileName = (['.\Configurations\fundamental_setting\FUN_CONFIG-' num2str(cali_configID) '.csv']);

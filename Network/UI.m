@@ -23,7 +23,7 @@ global samplingModeDc
 
 
 % name the index of configuration(s) 
-configID = [42];
+configID = [41];
 
 % boundary sensorIDs & testing sensorIDs
 thresholdChoice = 2;  % 1: manually 2:adaptive
@@ -32,7 +32,7 @@ sensorMode = 2; % 1: density, 2: flow
 errorStart = 4;  % # of data ignored ahead
 samplingModeVmax = 1; % 1: Gaussian, 2: uniform
 samplingModeDmax = 2;
-samplingModeDc = 2;
+samplingModeDc = 1;
 
 ABC_selection_type = 2;
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];

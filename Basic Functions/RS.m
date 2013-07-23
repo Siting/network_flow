@@ -2,6 +2,7 @@
 function[q]=RS(density1,vmax1,dmax1,dc1,density2,vmax2,dmax2,dc2)
 qmax1 = vmax1 .* dc1;
 qmax2 = vmax2 .* dc2;
+
 % s = (density1>=dc1).*(vmax1*dc1) + (density1<dc1).* (vmax1*density1.*((0<density1).*(density1<=dc1))+...
 %         (dc1*vmax1)*(dmax1-density1)./(dmax1-dc1).*((dmax1>density1).*(density1>dc1))+...
 %         0.*(density1>=dmax1)+0.*(density1<=0));

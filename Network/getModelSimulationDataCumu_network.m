@@ -1,5 +1,5 @@
 function[modelDataMatrix] = getModelSimulationDataCumu_network(configID, sample, tSensorIDs, T, deltaTinSecond, ROUND_SAMPLES)
-
+keyboard
 c = (T*60)/deltaTinSecond;
 for i = 1 : length(tSensorIDs)
     sensorID = tSensorIDs(i);

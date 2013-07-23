@@ -16,14 +16,6 @@ else
 end
 
 
-% link(1)=LINK(node.incomingLink_1_ID);
-% link(2)=LINK(node.incomingLink_2_ID);
-% link(3)=LINK(node.outgoingLink_1_ID);
-
 LINK(node.incomingLink_1_ID).rightFlux=result(1);
 LINK(node.incomingLink_2_ID).rightFlux=result(2);
 LINK(node.outgoingLink_1_ID).leftFlux=result(3);
-
-% LINK(node.incomingLink_1_ID)=link(1);
-% LINK(node.incomingLink_2_ID)=link(2);
-% LINK(node.outgoingLink_1_ID)=link(3);

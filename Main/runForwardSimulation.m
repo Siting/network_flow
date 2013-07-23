@@ -9,7 +9,7 @@ deltaT,numEns,numTimeSteps,nT,junctionSolverType)
 % the first page is the initial state
 
 for timeStep = 1 : numTimeSteps
-    
+
     page = timeStep+1;
     
     for ensemble = 1 : numEns
