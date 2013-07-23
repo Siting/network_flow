@@ -7,12 +7,12 @@ global testingSensorIDs
 global sensorDataSource
 global sensorMode
 
-series = 21;
-stage = 8;
+series = 50;
+stage = 5;
 startTimeStamp = 5;
 studyLinks = [1; 3; 5; 7];
-cali_configID = 42;
-cali_paraID = 42;
+cali_configID = 41;
+cali_paraID = 41;
 simu_configID = series + 100;
 numSamplesStudied = 2; % !!!!!!!!!! only study the mean values
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];

@@ -1,5 +1,5 @@
 function[LINK, SOURCE_LINK, SINK_LINK, JUNCTION, numCellsNet, ALL_SAMPLES, numLanes, ROUND_SAMPLES] = initializeAll_network(FUNDAMENTAL, linkMap, JUNCTION, deltaT,...
-    numEns, CONFIG, ALL_SAMPLES, SOURCE_LINK, SINK_LINK, junctionSolverType, LINK, ROUND_SAMPLES, deltaTinSecond)
+    numEns, CONFIG, ALL_SAMPLES, SOURCE_LINK, SINK_LINK, junctionSolverType, LINK, ROUND_SAMPLES)
 
 % Load Links (main links, source links, sink links)
 % denote links as LINK(i)
@@ -33,5 +33,5 @@ numLanes = LINK(1).numLanes;
 [LINK,numCellsNet] = initializeAllLinks(LINK, deltaT, numEns, CONFIG);
 
 % Set up FUNDAMENTAL parameters for SOURCE_LINK, SINK_LINK
-[SOURCE_LINK, SINK_LINK] = setFundamentalParameters_network(SOURCE_LINK, SINK_LINK, FUNDAMENTAL, linkMap, LINK, deltaTinSecond);
+[SOURCE_LINK, SINK_LINK] = setFundamentalParameters_network(SOURCE_LINK, SINK_LINK, FUNDAMENTAL, linkMap, LINK);
 

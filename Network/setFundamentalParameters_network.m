@@ -1,7 +1,6 @@
-function[SOURCE_LINK, SINK_LINK] = setFundamentalParameters_network(SOURCE_LINK, SINK_LINK, FUNDAMENTAL, linkMap, LINK, deltaTinSecond)
+function[SOURCE_LINK, SINK_LINK] = setFundamentalParameters_network(SOURCE_LINK, SINK_LINK, FUNDAMENTAL, linkMap, LINK)
 
 global funsOption
-global sensorMode
 
 % linkIDs = SOURCE_LINK.keys;
 for i = 1 : length(SOURCE_LINK)
@@ -16,14 +15,6 @@ for i = 1 : length(SOURCE_LINK)
         link.vmax = outgoingLink.vmax;
         link.dmax = outgoingLink.dmax;
         link.dc =  outgoingLink.dc;
-    end
-    
-    if sensorMode == 2
-        flowDataSum = link.densityResult / 2 * 60 * (60/deltaTinSecond);
-        densityDataSum = max(link.dc, link.dmax-flowDataSum./(link.vmax*link.dc)*(link.dmax-link.dc));
-        link.densityResult = densityDataSum;
-    else
-        disp('there is error in setting sensorMode');
     end
     
     SOURCE_LINK(i) = link;
@@ -41,13 +32,6 @@ for i = 1 : length(SINK_LINK)
         link.vmax = incomingLink.vmax;
         link.dmax = incomingLink.dmax;
         link.dc =  incomingLink.dc;
-    end
-    if sensorMode == 2
-        flowDataSum = link.densityResult / 2  * 60 * (60/deltaTinSecond);
-        densityDataSum = min(link.dc, flowDataSum ./ link.vmax);
-        link.densityResult = densityDataSum;
-    else
-        disp('there is error in setting sensorMode');
     end
     
     SINK_LINK(i) = link;

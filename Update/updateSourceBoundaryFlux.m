@@ -3,9 +3,6 @@ function[LINK] = updateSourceBoundaryFlux(node, sourceFeed,SOURCE_LINK,LINK,page
 link = LINK(node.outgoingLink_1_ID);
 sourceLink = SOURCE_LINK(node.incomingLink_1_ID);
 
-
-link.leftFlux = sourceFeed(node.outgoingLink_1_ID);
-
 qSource(node.outgoingLink_1_ID) = RS(sourceFeed(node.outgoingLink_1_ID),...
     sourceLink.vmax,sourceLink.dmax,...
     sourceLink.dc,...
