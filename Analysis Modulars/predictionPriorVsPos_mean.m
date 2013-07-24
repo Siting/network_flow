@@ -7,7 +7,7 @@ global testingSensorIDs
 global sensorDataSource
 global sensorMode
 
-series = 50;
+series = 60;
 stage = 5;
 startTimeStamp = 5;
 studyLinks = [1; 3; 5; 7];
