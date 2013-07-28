@@ -10,13 +10,13 @@ global samplingModeDmax
 global samplingModeDc
 global sensorMode
 
-series = 22;
-stage = 10;
+series = 60;
+stage = 5;
 numSamplesStudied = 10;
 startTimeStamp = 5;
 studyLinks = [1; 3; 5; 7];
-cali_configID = 42;
-cali_paraID = 42;
+cali_configID = 41;
+cali_paraID = 41;
 simu_configID = series + 100;
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
 boundarySinkSensorIDs = [402953; 400698];

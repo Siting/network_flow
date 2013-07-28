@@ -1,7 +1,7 @@
 clear all
 clc
 
-series = 20;
+series = 60;
 studyStages = [1;2;4;5];
 xlimLow = 40;
 xlimHigh = 80;

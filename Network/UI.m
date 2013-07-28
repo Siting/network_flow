@@ -20,6 +20,7 @@ global errorStart
 global samplingModeVmax
 global samplingModeDmax
 global samplingModeDc
+global occuThreshold
 
 
 % name the index of configuration(s) 
@@ -33,6 +34,7 @@ errorStart = 4;  % # of data ignored ahead
 samplingModeVmax = 1; % 1: Gaussian, 2: uniform
 samplingModeDmax = 2;
 samplingModeDc = 1;
+occuThreshold = 0.2;
 
 ABC_selection_type = 2;
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];

@@ -2,11 +2,11 @@
 clear all
 clc
 
-series = 60;
-studyStages = [1;2;3;4;5];
+series = 61;
+studyStages = [1;2;3;4;5;6];
 numSamplesStudied = 100;
-cali_configID = 41;
-cali_paraID = 41;
+cali_configID = 42;
+cali_paraID = 42;
 simu_configID = series+100;
 testingSensorIDs = [400739; 400363];
 

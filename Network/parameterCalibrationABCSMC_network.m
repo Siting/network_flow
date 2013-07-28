@@ -4,6 +4,8 @@ global testingSensorIDs
 global junctionIndex
 global sensorMode
 global perturbationFactor
+global boundarySourceSensorIDs
+global boundarySinkSensorIDs
 
 tTotalStart = tic;
 % load config & para & map
@@ -25,6 +27,9 @@ junctionIndex = 1;
 % pre-load links & junctions, also precompute junction lane ratio for
 % diverge and merge junctions
 [LINK, JUNCTION, SOURCE_LINK, SINK_LINK] = preloadAndCompute(linkMap, nodeMap, T, startTime, endTime);
+
+% pre-load occupancy data
+[occuDataMatrix_source, occuDataMatrix_sink] = preloadOccuData(boundarySourceSensorIDs, boundarySinkSensorIDs);
 
 % iterate through nodes
 % for i = 1 : length(nodeIDs)
@@ -78,7 +83,7 @@ for stage = 1 : numStages  % iterate stages
           
                 % run forward simulation
                 [LINK] = runForwardSimulation(LINK, SOURCE_LINK, SINK_LINK, JUNCTION, deltaT,...
-                    numEns, numTimeSteps, nT, junctionSolverType);
+                    numEns, numTimeSteps, nT, junctionSolverType, occuDataMatrix_source, occuDataMatrix_sink);
                 
                 % save density results
                 saveSimulationResults_network(LINK,sensorMetaDataMap,numEns,numTimeSteps,samplingInterval,...

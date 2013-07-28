@@ -10,9 +10,9 @@ global samplingModeDmax
 global samplingModeDc
 global sensorMode
 
-series = 22;
-stage = 10;
-numSamplesStudied = 5;
+series = 61;
+stage = 6;
+numSamplesStudied = 20;
 startTimeStamp = 5;
 studyLinks = [1; 3; 5; 7];
 cali_configID = 42;
@@ -38,7 +38,7 @@ vmax_var = funForLinks{5};
 dmax_var = funForLinks{6};
 dc_var = funForLinks{7};
 fclose(fid);
-load(['.\ResultCollection\series' num2str(series) '\-calibrationResult.mat']);
+% load(['.\ResultCollection\series' num2str(series) '\-calibrationResult.mat']);
 
 % load CONFIG & PARA &...
 load(['.\Configurations\configs\CONFIG-' num2str(cali_paraID) '.mat']);
@@ -60,11 +60,20 @@ ROUND_SAMPLES = initializeAllSamples(linkMap);
 for sample = 1 : (2 * numSamplesStudied)
     [LINK, JUNCTION, SOURCE_LINK, SINK_LINK] = preloadAndCompute(linkMap, nodeMap, PARAMETER.T, PARAMETER.startTime, PARAMETER.endTime);
     
-    load('C:\Users\Siting\Desktop\network_flow\ResultCollection\series22\-acceptedPop-stage-10.mat');
-    for i = 1 : size(meanForRounds,2)
-        FUNDAMENTAL(i).vmax = ACCEPTED_POP(i).samples(1,sample);
-        FUNDAMENTAL(i).dmax = ACCEPTED_POP(i).samples(2,sample);
-        FUNDAMENTAL(i).dc = ACCEPTED_POP(i).samples(3,sample);
+    if sample <= 1 * numSamplesStudied
+        for i = 1 : length(LINK)
+            guessed_FUNDAMENTAL.vmax = vmax_mean(i);
+            guessed_FUNDAMENTAL.dmax = dmax_mean(i);
+            guessed_FUNDAMENTAL.dc = dc_mean(i);
+            [FUNDAMENTAL(i)] = sampleFUNDA(guessed_FUNDAMENTAL, vmax_var(i), dmax_var(i), dc_var(i));
+        end
+    else        
+        load(['.\ResultCollection\series' num2str(series) '\-acceptedPop-stage-' num2str(stage) '.mat']);
+        for i = 1 : length(LINK)
+            FUNDAMENTAL(i).vmax = ACCEPTED_POP(i).samples(1,sample);
+            FUNDAMENTAL(i).dmax = ACCEPTED_POP(i).samples(2,sample);
+            FUNDAMENTAL(i).dc = ACCEPTED_POP(i).samples(3,sample);
+        end
     end
     
     % run simulation
@@ -112,7 +121,7 @@ for i = 1 : length(testingSensorIDs)
     legend(h,'prior', 'posterior','true');
     hold off
 
-    saveas(gcf, ['../Plots\series' num2str(series) '\predictionSensorPriorVsPos_sensor_ ' num2str(testingSensorIDs(i)) '_samples.pdf']);
-    saveas(gcf, ['../Plots\series' num2str(series) '\predictionSensorPriorVsPos_sensor_ ' num2str(testingSensorIDs(i)) '_samples.fig']);
-    saveas(gcf, ['../Plots\series' num2str(series) '\predictionSensorPriorVsPos_sensor_ ' num2str(testingSensorIDs(i)) '_samples.eps'], 'epsc');
+    saveas(gcf, ['../Plots\series' num2str(series) '\predictionSensorPriorVsPos_sensor_ ' num2str(testingSensorIDs(i)) '_acceptedSamples.pdf']);
+    saveas(gcf, ['../Plots\series' num2str(series) '\predictionSensorPriorVsPos_sensor_ ' num2str(testingSensorIDs(i)) '_acceptedSamples.fig']);
+    saveas(gcf, ['../Plots\series' num2str(series) '\predictionSensorPriorVsPos_sensor_ ' num2str(testingSensorIDs(i)) '_acceptedSamples.eps'], 'epsc');
 end
