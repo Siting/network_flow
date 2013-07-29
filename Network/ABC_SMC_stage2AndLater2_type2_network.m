@@ -1,7 +1,7 @@
 function[NEW_ACCEPTED_POP, newWeights, ar, NEW_REJECTED_POP, errorCollectionForStage, thresholdVector, criteriaForStage] = ABC_SMC_stage2AndLater2_type2_network(measConfigID, configID, samplingSize, criteria,...
                     ACCEPTED_POP, REJECTED_POP, ALL_SAMPLES, oldWeights, populationSize, PARAMETER, CONFIG,...
                     sensorMetaDataMap, LINK, SOURCE_LINK, SINK_LINK, JUNCTION, stage, linkMap, testingSensorIDs,...
-                    sensorDataMatrix, nodeMap, errorCollectionForStage, ROUND_SAMPLES)
+                    sensorDataMatrix, nodeMap, errorCollectionForStage, ROUND_SAMPLES,  occuDataMatrix_source, occuDataMatrix_sink)
                 
 global thresholdChoice
    
@@ -21,6 +21,7 @@ if thresholdChoice == 2
     [thresholdVector, criteriaForStage] = pickThresholdValue(stage, configID);
 elseif thresholdChoice == 1
     thresholdVector = PARAMETER.thresholdVector;
+    criteriaForStage = thresholdVector(stage,1);
 end
 
 while(condition)
@@ -35,7 +36,7 @@ while(condition)
     % update Fundamental for links etc, and then run simulation
     disp('start simulation');
     [LINK, SOURCE_LINK, SINK_LINK, JUNCTION, T, deltaTinSecond, ROUND_SAMPLES] = updateFunAndSimulate_type2_network(POPULATION_2, LINK, SOURCE_LINK, SINK_LINK, JUNCTION,...
-        CONFIG, PARAMETER, indexCollection_1, sensorMetaDataMap, configID, stage, linkMap, ROUND_SAMPLES);
+        CONFIG, PARAMETER, indexCollection_1, sensorMetaDataMap, configID, stage, linkMap, ROUND_SAMPLES,  occuDataMatrix_source, occuDataMatrix_sink);
 
     % filter samples, accept or reject?
     disp('start calibration');

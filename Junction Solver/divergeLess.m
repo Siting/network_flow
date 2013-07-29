@@ -14,9 +14,6 @@ rightDensity1 = outLink1.densityResult(1,ensemble,page-1);
 rightDensity2 = outLink2.densityResult(1,ensemble,page-1);
 
 % compute lane ratio
-% [q13oLaneRatio1 q13sLaneRatio1 q14sLaneRatio1 q14oLaneRatio1 q13oLaneRatio2 q13sLaneRatio2 q14sLaneRatio2 q14oLaneRatio2]...
-%     = computeLaneRatioForDivergeLess(JUNCTION,junction_index);
-% load(['node-' num2str(junction_index) '-junctionLaneRatio.mat']);
 q13oLaneRatio1 = node.q13oLaneRatio1;
 q13sLaneRatio1 = node.q13sLaneRatio1;
 q14oLaneRatio1 = node.q14oLaneRatio1;
