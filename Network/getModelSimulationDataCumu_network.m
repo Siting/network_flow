@@ -12,6 +12,7 @@ for i = 1 : length(tSensorIDs)
     elseif i == 2
         j = 7;
     end
+
     flow = Q(sensorData,ROUND_SAMPLES(j).samples(1,sample), ROUND_SAMPLES(j).samples(2,sample), ROUND_SAMPLES(j).samples(3,sample));
 
     % adjusted flow to the T time scale

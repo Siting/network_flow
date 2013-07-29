@@ -1,5 +1,5 @@
 function[LINK, ROUND_SAMPLES] = runSimulationForSample(FUNDAMENTAL, PARAMETER, CONFIG, simu_configID, index, simu_evolutionDataFolder,...
-    LINK, JUNCTION, SOURCE_LINK, SINK_LINK, ROUND_SAMPLES)
+    LINK, JUNCTION, SOURCE_LINK, SINK_LINK, ROUND_SAMPLES, occuDataMatrix_source, occuDataMatrix_sink)
 
 % load config & para & map
 [deltaTinSecond, deltaT, nT, numIntervals, numEns,...
@@ -26,7 +26,7 @@ load([caliNetworkID, '-graph.mat']);
 [SOURCE_LINK, SINK_LINK] = setSourceSinkSample(SOURCE_LINK, SINK_LINK, LINK, deltaTinSecond);
 
 % run simulation
-[LINK] = runForwardSimulation(LINK, SOURCE_LINK, SINK_LINK, JUNCTION, deltaT, numEns, numTimeSteps, nT, junctionSolverType);
+[LINK] = runForwardSimulation(LINK, SOURCE_LINK, SINK_LINK, JUNCTION, deltaT, numEns, numTimeSteps, nT, junctionSolverType, occuDataMatrix_source, occuDataMatrix_sink);
 
 saveSimulationResults_error(LINK,sensorMetaDataMap,numEns,numTimeSteps,samplingInterval,...
     startTimePara,unixTimeStep,trueStateErrorMean,trueStateErrorVar, index, configID, simu_evolutionDataFolder, CONFIG, PARAMETER);
