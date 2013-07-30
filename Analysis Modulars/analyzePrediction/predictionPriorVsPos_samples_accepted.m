@@ -10,13 +10,13 @@ global samplingModeDmax
 global samplingModeDc
 global sensorMode
 
-series = 70;
-stage = 7;
+series = 71;
+stage = 8;
 numSamplesStudied = 50;
 startTimeStamp = 5;
 studyLinks = [1; 3; 5; 7];
-cali_configID = 41;
-cali_paraID = 41;
+cali_configID = 42;
+cali_paraID = 42;
 simu_configID = series + 100;
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
 boundarySinkSensorIDs = [402953; 400698];
@@ -27,7 +27,7 @@ samplingModeDmax = 2;
 samplingModeDc = 2;
 sensorMode = 2;
 
-% load prior and posterior
+% load prior
 fileName = (['.\Configurations\fundamental_setting\FUN_CONFIG-' num2str(cali_configID) '.csv']);
 fid=fopen(fileName);
 funForLinks=textscan(fid,'%d %f %f %f %f %f %f','delimiter',',','headerlines',1);

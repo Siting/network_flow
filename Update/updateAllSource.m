@@ -2,6 +2,10 @@ function[sourceFeed] = updateAllSource(SOURCE_LINK,page,nT, LINK, deltaTinSecond
 
 global occuThreshold
 
+if isempty(occuThreshold) == 1
+    disp('occuThreshold not assigned');
+end
+
 % linkIds = SOURCE_LINK.keys;
 global sensorMode
 for i = 1 : length(SOURCE_LINK)

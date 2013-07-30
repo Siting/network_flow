@@ -6,19 +6,22 @@ global boundarySinkSensorIDs
 global testingSensorIDs
 global sensorDataSource
 global thresholdChoice
+global occuThreshold
 
-series = 15;
+series = 71;
 studyLinks = [1;3; 5; 7];
 stage = 7;
 cali_configID = 41;
 cali_paraID = 41;
 simu_configID = 118;
 numSamplesStudied = 1;
+sampleIndex = 5;
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
 boundarySinkSensorIDs = [402953; 400698];
 testingSensorIDs = [400739; 400363];
 sensorDataSource = 2;
 thresholdChoice = 2;
+occuThreshold = 0.2;
 
 % load thresholdVecotr & rejected samples & PARA
 load(['.\ResultCollection\series' num2str(series) '\-calibrationResult.mat']);
@@ -37,18 +40,22 @@ if numSamplesStudied > numSamples
     numSamplesStudied = numSamples;
 end
 
+ROUND_SAMPLES = initializeAllSamples(linkMap);
+
 % SIMULATION
 for sample = 1 : numSamplesStudied
     [LINK, JUNCTION, SOURCE_LINK, SINK_LINK] = preloadAndCompute(linkMap, nodeMap, PARAMETER.T, PARAMETER.startTime, PARAMETER.endTime);
+    % pre-load occupancy data
+    [occuDataMatrix_source, occuDataMatrix_sink] = preloadOccuData(boundarySourceSensorIDs, boundarySinkSensorIDs);
     % extract sample for every link & assign to links
     for i = 1 : length(ACCEPTED_POP)
-        FUNDAMENTAL(i).vmax = ACCEPTED_POP(i).samples(1,sample);
-        FUNDAMENTAL(i).dmax = ACCEPTED_POP(i).samples(2,sample);
-        FUNDAMENTAL(i).dc = ACCEPTED_POP(i).samples(3,sample);
+        FUNDAMENTAL(i).vmax = ACCEPTED_POP(i).samples(1,sampleIndex);
+        FUNDAMENTAL(i).dmax = ACCEPTED_POP(i).samples(2,sampleIndex);
+        FUNDAMENTAL(i).dc = ACCEPTED_POP(i).samples(3,sampleIndex);
     end
     % run simulation
     [LINK] = runSimulationForSample(FUNDAMENTAL, PARAMETER, CONFIG, simu_configID, sample, simu_sensorEvolutionDataFolder,...
-        LINK, JUNCTION, SOURCE_LINK, SINK_LINK);    
+        LINK, JUNCTION, SOURCE_LINK, SINK_LINK, ROUND_SAMPLES, occuDataMatrix_source, occuDataMatrix_sink);    
     
     % all links density results
     save([simu_linkEvolutionDataFolder '\LINK-CONFIG-' num2str(cali_configID) '-sample-' num2str(sample)],'LINK');
