@@ -9,11 +9,13 @@ global samplingModeVmax
 global samplingModeDmax
 global samplingModeDc
 global sensorMode
+global occuThreshold
 
-series = 71;
-stage = 8;
-numSamplesStudied = 50;
+series = 73;
+stage = 6;
+numSamplesStudied = 10;
 startTimeStamp = 5;
+occuThreshold = 0.2;
 studyLinks = [1; 3; 5; 7];
 cali_configID = 42;
 cali_paraID = 42;

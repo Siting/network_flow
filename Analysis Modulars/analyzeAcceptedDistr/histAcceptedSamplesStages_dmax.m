@@ -1,9 +1,9 @@
 clear all
 clc
 
-series = 60;
-studyStages = [1;2;4;5];
-studyLinks = [1;3;5;7];
+series = 61;
+studyStages = [1;2;4;6];
+studyLinks = [1;3;5;7;9];
 xlimLow = 100;
 xlimHigh = 250;
 

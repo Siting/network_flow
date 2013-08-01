@@ -7,13 +7,14 @@ global testingSensorIDs
 global sensorDataSource
 global thresholdChoice
 global occuThreshold
+global sensorMode
 
-series = 71;
-studyLinks = [1;3; 5; 7];
-stage = 7;
+series = 70;
+studyLinks = [1;3;5;7;9];
+stage = 6;
 cali_configID = 41;
 cali_paraID = 41;
-simu_configID = 118;
+simu_configID = series + 100;
 numSamplesStudied = 1;
 sampleIndex = 5;
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
@@ -22,9 +23,10 @@ testingSensorIDs = [400739; 400363];
 sensorDataSource = 2;
 thresholdChoice = 2;
 occuThreshold = 0.2;
+sensorMode = 2;
 
 % load thresholdVecotr & rejected samples & PARA
-load(['.\ResultCollection\series' num2str(series) '\-calibrationResult.mat']);
+% load(['.\ResultCollection\series' num2str(series) '\-calibrationResult.mat']);
 load(['.\Configurations\parameters\PARAMETER-' num2str(cali_paraID) '.mat']);
 load(['.\Configurations\configs\CONFIG-' num2str(cali_paraID) '.mat']);
 FUNDAMENTAL = PARAMETER.FUNDAMENTAL;
@@ -73,7 +75,7 @@ for sample = 1 : numSamplesStudied
     
     for j = 1 : length(studyLinks)
         link = studyLinks(j);
-        
+
         % load link density evolution result
         linkDensity_cali = LINK(link).densityResult;
         
@@ -91,9 +93,9 @@ for sample = 1 : numSamplesStudied
         set(gca,'xDir','Normal');
         h = colorbar;
         hold on
-        saveas(gcf, ['../Plots\series' num2str(series) '\acceptedEvolution_sample_ ' num2str(sample) '_link_' num2str(link) '.pdf']);
-        saveas(gcf, ['../Plots\series' num2str(series) '\acceptedEvolution_sample_ ' num2str(sample) '_link_' num2str(link) '.fig']);
-        saveas(gcf, ['../Plots\series' num2str(series) '\acceptedEvolution_sample_ ' num2str(sample) '_link_' num2str(link) '.eps'], 'epsc');
+        saveas(gcf, ['../Plots\series' num2str(series) '\acceptedEvolution_sample_' num2str(sample) '_link_' num2str(link) '.pdf']);
+        saveas(gcf, ['../Plots\series' num2str(series) '\acceptedEvolution_sample_' num2str(sample) '_link_' num2str(link) '.fig']);
+        saveas(gcf, ['../Plots\series' num2str(series) '\acceptedEvolution_sample_' num2str(sample) '_link_' num2str(link) '.eps'], 'epsc');
         
     end
 end

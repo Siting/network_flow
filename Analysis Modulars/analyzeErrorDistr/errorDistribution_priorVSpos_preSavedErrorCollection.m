@@ -12,12 +12,14 @@ global samplingModeVmax
 global samplingModeDmax
 global samplingModeDc
 global sensorMode
+global occuThreshold
 
-series = 71;
-studyStages = [8];
-numSamplesStudied = 100;
+series = 73;
+studyStages = [6];
+numSamplesStudied = 60;
 cali_configID = 42;
 cali_paraID = 42;
+occuThreshold = 0.2;
 simu_configID = series+100;
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
 boundarySinkSensorIDs = [402953; 400698];

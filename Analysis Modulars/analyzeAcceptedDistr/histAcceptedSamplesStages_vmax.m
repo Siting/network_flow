@@ -1,11 +1,11 @@
 clear all
 clc
 
-series = 60;
-studyStages = [1;2;4;5];
+series = 61;
+studyStages = [1;2;4;6];
 xlimLow = 40;
 xlimHigh = 80;
-studyLinks = [1;3;5;7];
+studyLinks = [1;3;5;7;9];
 
 for j = 1 : length(studyLinks)
     link = studyLinks(j);
