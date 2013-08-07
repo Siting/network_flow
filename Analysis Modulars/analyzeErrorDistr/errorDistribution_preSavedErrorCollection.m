@@ -2,8 +2,8 @@
 clear all
 clc
 
-series = 73;
-studyStages = [1;2;3;4;5;6;];
+series = 74;
+studyStages = [1;3;5;7;9;];
 numSamplesStudied = 100;
 cali_configID = 42;
 cali_paraID = 42;
@@ -33,14 +33,14 @@ end
 
 figure
 subplot(2,1,1)
-boxplot(errorCollectionStages, 'outliersize', 10);
+boxplot(errorCollectionStages, 'outliersize', 10, 'labels', studyStages);
 xlabel('Stage');
 ylabel('Absolute error');
 
 hold on
 
 subplot(2,1,2)
-boxplot(relativeErrorStages);
+boxplot(relativeErrorStages, 'outliersize', 10, 'labels', studyStages);
 xlabel('Stage');
 ylabel('Relative error');
 

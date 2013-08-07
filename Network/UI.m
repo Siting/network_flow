@@ -24,7 +24,7 @@ global occuThreshold
 
 
 % name the index of configuration(s) 
-configID = [42];
+configID = [43];
 
 % boundary sensorIDs & testing sensorIDs
 thresholdChoice = 2;  % 1: manually 2:adaptive

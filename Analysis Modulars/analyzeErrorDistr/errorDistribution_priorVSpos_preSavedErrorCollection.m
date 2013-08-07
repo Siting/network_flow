@@ -14,8 +14,8 @@ global samplingModeDc
 global sensorMode
 global occuThreshold
 
-series = 73;
-studyStages = [6];
+series = 74;
+studyStages = [9];
 numSamplesStudied = 60;
 cali_configID = 42;
 cali_paraID = 42;

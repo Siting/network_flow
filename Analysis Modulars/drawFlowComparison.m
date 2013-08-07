@@ -2,8 +2,8 @@ clear all
 clc
 
 sensorIDs = [400468; 402955; 402953; 400739; 402954; 400363; 402950; 400698];
-startTime = 4;
-endTime = 5.5;
+startTime = 8;
+endTime = 10;
 startIndex = (startTime * 3600)/30 + 1;
 endIndex = (endTime * 3600)/30 + 1;
 %%
@@ -17,15 +17,15 @@ global samplingModeDc
 global sensorMode
 global occuThreshold
 
-series = 70;
-stage = 6;
+series = 74;
+stage = 9;
 numSamplesStudied = 1;
 sampleIndex = 25;
 occuThreshold = 0.2;
 startTimeStamp = 5;
 studyLinks = [1; 3; 5; 7];
-cali_configID = 41;
-cali_paraID = 41;
+cali_configID = 42;
+cali_paraID = 42;
 simu_configID = series + 100;
 boundarySourceSensorIDs = [400468; 402955; 402954; 402950];
 boundarySinkSensorIDs = [402953; 400698];

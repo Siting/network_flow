@@ -11,9 +11,9 @@ global samplingModeDc
 global sensorMode
 global occuThreshold
 
-series = 73;
-stage = 6;
-numSamplesStudied = 10;
+series = 74;
+stage = 9;
+numSamplesStudied = 30;
 startTimeStamp = 5;
 occuThreshold = 0.2;
 studyLinks = [1; 3; 5; 7];
@@ -120,7 +120,7 @@ for i = 1 : length(testingSensorIDs)
     sensorData = sensorDataMatrix(:,i);
     h(3) = plot(sensorData(startTimeStamp+1:end), 'g');
     xlabel('time');
-    ylabel('density');
+    ylabel('flow');
     legend(h,'prior', 'posterior','true');
     hold off
 
