@@ -1,13 +1,13 @@
 clear all
 clc
 
-series = 20;
-studyStages = [3;4;5];
-studyLinks = [3];
+series = 76;
+studyStages = [9];
+studyLinks = [9];
 cali_configID = 41;
 cali_paraID = 41;
 simu_configID = series+100;
-time = 1;
+time = 2;
 
 for j = 1 : length(studyLinks)
     link = studyLinks(j);
@@ -19,12 +19,13 @@ for j = 1 : length(studyLinks)
         population_3 = POPULATION_3(link).samples;
         population_4 = POPULATION_4(link).samples;
         
+        
         figure(j*i)
         %2D
         h(1) = scatter(population_1(2,:),population_1(3,:),'r', 'filled');    % previous
         hold on
         S = repmat([3]*10,numel(population_3(1,:)),1);
-        h(2) = scatter(population_3(2,:),population_3(3,:),S(:),'k', 'filled');    % accepted
+        h(2) = scatter(population_3(2,:),population_3(3,:),'k', 'filled');    % accepted
         
         h(3) = scatter(population_4(2,:),population_4(3,:),'b', 'filled');          % rejected
         legend(h, 'new samples','accepted', 'rejected');
